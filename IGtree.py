@@ -15,3 +15,6 @@ print(df.dtypes)
 # sort by categorical variable
 cover = df.sort_values(by="Cloud cover")
 print(cover)
+
+#how many in cloud?
+s=sum(df["Cloud cover"]=="Cloudy")
