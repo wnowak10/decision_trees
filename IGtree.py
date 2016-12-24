@@ -15,15 +15,22 @@ df = pd.read_csv("df.csv")
 print(df)
 print(df.dtypes)
 
-
+# return variables in list
 titles=df.columns.values
+
+#############
+# CATEGORICAL VARS
+###############
 
 # sort by categorical variable
 cover = df.sort_values(by=titles[1])
 print(cover)
 
+#What are all of the options for the sorted variable?
+df[df.columns[1]].unique()
+
 #how many in cloud?
-s=sum(df["Cloud cover"]=="Cloudy")
+s=sum(df[df.columns[1]]==df[df.columns[1]].unique()[1])
 
 # split into two dfs. one is cloudy and one is not.
 cover1, cover2 = cover[:s], cover[s:]
