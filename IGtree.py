@@ -15,8 +15,11 @@ df = pd.read_csv("df.csv")
 print(df)
 print(df.dtypes)
 
+
+titles=df.columns.values
+
 # sort by categorical variable
-cover = df.sort_values(by="Cloud cover")
+cover = df.sort_values(by=titles[1])
 print(cover)
 
 #how many in cloud?
@@ -38,7 +41,23 @@ print(entropy(p1))
 print(entropy(p2 ))
 
 #E0
-entropy(sum(df["Beverage"]=="Tea")/len(df))
+eone = entropy(sum(df["Beverage"]=="Tea")/len(df))
 
 #E1
-(len(cover1)/len(df))*entropy(p1) + (len(cover2)/len(df))*entropy(p2)
+etwo = (len(cover1)/len(df))*entropy(p1) + (len(cover2)/len(df))*entropy(p2)
+
+info_gain = eone - etwo
+
+print(info_gain)
+
+# find in
+
+# now compare entropy for variables and split points
+
+# then splt on which is highest
+
+# for first variable, sort
+# go through values and find IG
+# split on variable and split point with highest IG
+# sort on variable
+#how to split df based on variabel
