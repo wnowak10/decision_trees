@@ -31,8 +31,14 @@ p1 = sum(cover1['Beverage']=="Coffee") / len(cover1)
 p2 = sum(cover2['Beverage']=="Coffee") / len(cover2)
 
 def entropy(p):
-	return p*(math.log(p+eps)/math.log(2))+(1-p+eps)*(math.log(1-p)/math.log(2))
+	return -p*(math.log(p+eps)/math.log(2))-(1-p+eps)*(math.log(1-p)/math.log(2))
 
 # find entropy
 print(entropy(p1))
 print(entropy(p2 ))
+
+#E0
+entropy(sum(df["Beverage"]=="Tea")/len(df))
+
+#E1
+(len(cover1)/len(df))*entropy(p1) + (len(cover2)/len(df))*entropy(p2)
