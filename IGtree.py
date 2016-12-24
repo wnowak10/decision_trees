@@ -1,7 +1,10 @@
+#dtalg.py
+from __future__ import division
 import pandas as pd
 import os 
 import sys
-
+import math
+# import data
 seed=9
 eps=sys.float_info.epsilon
 os.chdir('/Users/wnowak/Desktop') # Provide the path here
@@ -26,3 +29,10 @@ cover1, cover2 = cover[:s], cover[s:]
 # find breakdowns
 p1 = sum(cover1['Beverage']=="Coffee") / len(cover1)
 p2 = sum(cover2['Beverage']=="Coffee") / len(cover2)
+
+def entropy(p):
+	return p*(math.log(p+eps)/math.log(2))+(1-p+eps)*(math.log(1-p)/math.log(2))
+
+# find entropy
+print(entropy(p1))
+print(entropy(p2 ))
