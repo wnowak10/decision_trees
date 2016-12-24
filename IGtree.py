@@ -18,3 +18,6 @@ print(cover)
 
 #how many in cloud?
 s=sum(df["Cloud cover"]=="Cloudy")
+
+# split into two dfs. one is cloudy and one is not.
+cover1, cover2 = cover[:s], cover[s:]
