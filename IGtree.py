@@ -27,13 +27,20 @@ cover = df.sort_values(by=titles[1])
 print(cover)
 
 #What are all of the options for the sorted variable?
+# this is looking at second (1 with 0 index) column in ddf
 df[df.columns[1]].unique()
 
 #how many in cloud?
+# this is looking at how many unique values for this var
+
+
+print(df.loc[df[df.columns[1]] == df[df.columns[1]].unique()[1])])
+
+
 s=sum(df[df.columns[1]]==df[df.columns[1]].unique()[1])
 
 # split into two dfs. one is cloudy and one is not.
-cover1, cover2 = cover[:s], cover[s:]
+cover1, cover2 = df.loc[df[df.columns.values[1]] == df[df.columns[1]].unique()[0]], df.loc[df[df.columns.values[1]] == df[df.columns[1]].unique()[1]]
 
 
 # find breakdowns
