@@ -14,64 +14,44 @@ df = pd.read_csv("df.csv")
 #what does df look like?
 print(df)
 print(df.dtypes)
-
 # return variables in list
 titles=df.columns.values
 
-#############
-# CATEGORICAL VARS
-###############
-
-# sort by categorical variable
-cover = df.sort_values(by=titles[1])
-print(cover)
-
-#What are all of the options for the sorted variable?
-# this is looking at second (1 with 0 index) column in ddf
-df[df.columns[1]].unique()
-
-#how many in cloud?
-# this is looking at how many unique values for this var
-
-
-print(df.loc[df[df.columns[1]] == df[df.columns[1]].unique()[1])])
-
-
-s=sum(df[df.columns[1]]==df[df.columns[1]].unique()[1])
-
-# split into two dfs. one is cloudy and one is not.
-cover1, cover2 = df.loc[df[df.columns.values[1]] == df[df.columns[1]].unique()[0]], df.loc[df[df.columns.values[1]] == df[df.columns[1]].unique()[1]]
-
-
-# find breakdowns
-p1 = sum(cover1['Beverage']=="Coffee") / len(cover1)
-p2 = sum(cover2['Beverage']=="Coffee") / len(cover2)
-
+# define entropy function. use base 2. add eps so that we done get domain error from prob of 0. 
 def entropy(p):
 	return -p*(math.log(p+eps)/math.log(2))-(1-p+eps)*(math.log(1-p)/math.log(2))
 
-# find entropy
-print(entropy(p1))
-print(entropy(p2 ))
+maxIG = 0
+h_one = entropy(sum(df['Beverage']==df['Beverage'].unique()[0]) / len(df) )
+# find len of dataframe. will need for entropy calcs.
+l=len(df)
+# for all feature columns
+for i in range(len(df.columns)-1):
+	# for each unique outcome. this is redundant when we have 2 categoricall variables, as it is going
+	# to check for cloudy v not cloudy AND sunny v not sunny, when cloudy and not sunny are the same
+	for j in range(len(df[df.columns[i]].unique())):
+		# if feature is numerical, i'll want to see if i can deal with it a bit more efficiently 
+		# than checking every outcome. some sort of algorithm that looks in top and bottom half to 
+		# search for optimal split seems sensible. this remains to do
+		if df[df.columns[i]].dtype == 'int64':
+			print('int and i is and j is: ',i,j)
+			# ?handle this as a num feature
+		# if we have categorical data	
+		else:
+			# split into two data frames
+			print('cat and i and j is:',i,j)
+			ddff = df.loc[df[df.columns.values[i]] == df[df.columns[i]].unique()[0]]
+			ddff2 = df.loc[df[df.columns.values[i]] == df[df.columns[i]].unique()[1]]
+			# how can i simply subtract ddff from df to get the other half of the split? thatd be ideal
+			l1 = len(ddff)
+			p1 = sum(ddff['Beverage']==ddff['Beverage'].unique()[0]) / l1
+			l2 = len(ddff2)
+			p2 = sum(ddff2['Beverage']==ddff2['Beverage'].unique()[0]) / l2
+			# weighted entropy for this split
+			h_two = (l1/l)*entropy(p1) + (l2/l)*entropy(p2)
+			IG = h_one - h_two
+			if IG>maxIG:
+				maxIG = IG
 
-#E0
-eone = entropy(sum(df["Beverage"]=="Tea")/len(df))
 
-#E1
-etwo = (len(cover1)/len(df))*entropy(p1) + (len(cover2)/len(df))*entropy(p2)
-
-info_gain = eone - etwo
-
-print(info_gain)
-
-# find in
-
-# now compare entropy for variables and split points
-
-# then splt on which is highest
-
-# for first variable, sort
-# go through values and find IG
-# split on variable and split point with highest IG
-# sort on variable
-#how to split df based on variabel
+print(maxIG)
