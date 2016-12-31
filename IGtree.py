@@ -1,13 +1,12 @@
 #dtalg.py
 from __future__ import division
 import pandas as pd
-import os 
+import dir
 import sys
 import math
 # import data
 seed=9
 eps=sys.float_info.epsilon
-os.chdir('/Users/wnowak/Desktop') # Provide the path here
 df = pd.read_csv("df.csv")
 
 
