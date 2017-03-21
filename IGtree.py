@@ -7,7 +7,7 @@ import math
 # import data
 seed=9
 eps=sys.float_info.epsilon
-df = pd.read_csv("df.csv")
+df = pd.read_csv("df2.csv")
 
 
 #what does df look like?
@@ -54,7 +54,7 @@ for i in range(len(df.columns)-1):
 	else:
 		for j in range(len(df[df.columns[i]].unique())):
 			# split into two data frames
-			print('cat and i and j is:',i,j)
+			print('cat and i and j is:',df.columns[i][j])
 			ddff = df.loc[df[df.columns.values[i]] == df[df.columns[i]].unique()[0]]
 			ddff2 = df.loc[df[df.columns.values[i]] == df[df.columns[i]].unique()[1]]
 			# how can i simply subtract ddff from df to get the other half of the split? thatd be ideal
